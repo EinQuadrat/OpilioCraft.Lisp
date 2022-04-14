@@ -6,17 +6,8 @@ open OpilioCraft.FSharp.Prelude
 exception InvalidLispExpressionException of ErrorMsg:string
     with override x.ToString () = $"Invalid or unsupported LISP expression: {x.ErrorMsg}"
 
-exception WrongNumberOfArgsException of FuncName:string * Expected:int
-    with override x.ToString () = $"Function {x.FuncName} expects exactly {x.Expected} argument(s)"
-
 exception UndefinedFunctionException of Name:string
     with override x.ToString () = $"{x.Name} is not a defined function"
-
-exception InvalidArgsException
-    with override x.ToString () = $"Invalid arguments"
-
-exception UndefinedSymbolException of Name:string
-    with override x.ToString () = $"{x.Name} is not a defined symbol"
 
 exception UnsupportedPrimitiveType of Type:System.Type
     with override x.ToString () = $"{x.Type.Name} is not supported as primitive value type"
@@ -53,22 +44,8 @@ type Expression =
             
         stringify x
 
-// Function types
-and UnaryOperator = IRuntime -> Expression -> Expression
-and BinaryOperator = IRuntime -> Expression * Expression -> Expression
-and Function = IRuntime -> Expression list -> Expression
-and Macro = Expression list -> Expression
-
-// Runtime
-and IRuntime =
-    abstract member RegisterFunction : string -> Function -> unit
-    abstract member RegisterMacro : string -> Macro -> unit
-
-    abstract member Parse : string -> Expression // should apply all registered macros after parsing
-    abstract member TryParse : string -> Expression option
-
-    abstract member Eval : Expression -> Expression
-
+// Function type
+and Function = Expression list -> Expression
 
 [<AutoOpen>]
 module Primitives =
