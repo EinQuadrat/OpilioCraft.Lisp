@@ -13,36 +13,56 @@ type MinimalRuntime () =
         else
             raise <| UndefinedFunctionException name
 
+    // LISP evaluator: the golden heart of LISP ;-)
+    let rec evalExpression = function
+        // quote prevents evaluation of the following expression
+        | QuotedExpression expr -> expr 
+
+        // an atom evaluates to itself
+        | Atom _ as atom -> atom
+
+        // currently no support for symbol tables: a symbol evaluates to itself
+        | Symbol _ as symbol -> symbol
+
+        // do we have a function call?
+        | List ( (Symbol symbol) :: args ) -> args |> List.map evalExpression |> (lookupFunction symbol) |> evalExpression
+
+        // lists elemts are evaluated; is some kind of duplicated code according to the pattern above, but easier to read
+        | List items -> items |> List.map evalExpression |> List
+
     // runtime behaviour
     member _.RegisterFunction name body =
         functionTable <- functionTable |> Map.add name body
 
-    member _.Parse sourceCode =
-        let parsedLisp = run OpilioCraft.Lisp.Parser.pExpression sourceCode in
+    member _.Parse lispSource =
+        let parsedLisp = run OpilioCraft.Lisp.Parser.pExpression lispSource in
 
         match parsedLisp with
         | Success(lispExpr, _, _) -> lispExpr
         | Failure(errorMsg, _, _) -> raise <| InvalidLispExpressionException errorMsg
 
-    member x.Eval lispExpr =
-        let rec evalExpression expr =
-            match expr with
-            // quote prevents evaluation of the following expression
-            | QuotedExpression expr -> expr 
-
-            // an atom evaluates to itself
-            | Atom _ as atom -> atom
-
-            // currently no support for symbol tables: a symbol evaluates to itself
-            | Symbol _ as symbol -> symbol
-
-            // do we have a function call?
-            | List ( (Symbol symbol) :: args ) -> args |> List.map evalExpression |> (lookupFunction symbol)
-
-            // lists elemts are evaluated; is some kind of duplicated code according to the pattern above, but easier to read
-            | List items -> items |> List.map evalExpression |> List
-
+    member _.Eval lispExpr =
         evalExpression lispExpr
 
-    member x.Run lispString =
-        lispString |> x.Parse |> x.Eval
+    member x.Run lispSource =
+        lispSource |> x.Parse |> x.Eval
+
+    // explicit support of Result style
+    member _.ParseWithResult lispSource =
+        try
+            let parsedLisp = run OpilioCraft.Lisp.Parser.pExpression lispSource in
+
+            match parsedLisp with
+            | Success(lispExpr, _, _) -> Result.Ok lispExpr
+            | Failure(errorMsg, _, _) -> Result.Error errorMsg
+        with
+            | exn -> Result.Error $"[{exn.GetType().FullName}] {exn.Message}"
+
+    member _.EvalWithResult lispExpr =
+        try
+            evalExpression lispExpr |> Result.Ok
+        with
+            | exn -> Result.Error $"[{exn.GetType().FullName}] {exn.Message}"
+
+    member x.RunWithResult lispSource =
+        lispSource |> x.ParseWithResult |> Result.bind x.EvalWithResult

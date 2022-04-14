@@ -1,6 +1,5 @@
 ﻿namespace OpilioCraft.Lisp
 
-open System
 open OpilioCraft.FSharp.Prelude
 
 exception InvalidLispExpressionException of ErrorMsg:string
@@ -9,20 +8,17 @@ exception InvalidLispExpressionException of ErrorMsg:string
 exception UndefinedFunctionException of Name:string
     with override x.ToString () = $"{x.Name} is not a defined function"
 
-exception UnsupportedPrimitiveType of Type:System.Type
-    with override x.ToString () = $"{x.Type.Name} is not supported as primitive value type"
-
-// AST nodes
+// LISP elements
 type Expression = 
     | Atom of FlexibleValue
-    | Symbol of string
+    | Symbol of string // special case of an atom: a string not enclosed in quotation marks; simplifies evaluation
     | List of Expression list
     | QuotedExpression of Expression
 
     override x.ToString () =
         let rec stringify = function
-            | Atom primitive ->
-                match primitive with
+            | Atom atomValue ->
+                match atomValue with
                 | FlexibleValue.Boolean true -> "T"
                 | FlexibleValue.Boolean false -> "NIL"
                 | FlexibleValue.Numeral numValue -> $"{numValue}"
@@ -30,28 +26,30 @@ type Expression =
                 | FlexibleValue.String stringValue -> $"\"{stringValue}\""
                 | FlexibleValue.Date dateValue -> dateValue.ToString("yyyy-MM-dd")
                 | FlexibleValue.Time timeValue -> timeValue.ToString("hh:mm:ss")
-                | FlexibleValue.DateTime dateTimeValue -> dateTimeValue.ToString("yyyy-MM-ddThh:mm:ss")
-                | unsupported -> raise <| UnsupportedPrimitiveType (unsupported.GetType())
+                | FlexibleValue.DateTime datetimeValue -> datetimeValue.ToString("yyyy-MM-ddThh:mm:ss")
+                | otherKindOfValue -> otherKindOfValue.ToString()
 
             | Symbol symbol -> symbol
     
-            | List [] -> "NIL"
+            | List [] -> "()"
             | List listValue ->
-                let listAsString = listValue |> List.map stringify |> (fun strings -> String.Join(" ", strings)) in
+                let listAsString = listValue |> List.map stringify |> (fun strings -> System.String.Join(" ", strings)) in
                 $"({listAsString})"
     
             | QuotedExpression expr -> "'" + (stringify expr)
             
         stringify x
 
-// Function type
+// LISP function
 and Function = Expression list -> Expression
 
+// ------------------------------------------------------------------------------------------------
+
 [<AutoOpen>]
-module Primitives =
+module LispAtomHelper =
     let LispBoolean     = FlexibleValue.Boolean >> Atom
-    let LispDecimal     = FlexibleValue.Decimal >> Atom
     let LispNumeral     = FlexibleValue.Numeral >> Atom
+    let LispDecimal     = FlexibleValue.Decimal >> Atom
     let LispString      = FlexibleValue.String >> Atom
 
     let LispTrue        = LispBoolean true
