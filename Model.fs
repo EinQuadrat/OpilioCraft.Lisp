@@ -3,7 +3,7 @@
 open OpilioCraft.FSharp.Prelude
 
 exception InvalidLispExpressionException of ErrorMsg:string
-    with override x.ToString () = $"Invalid or unsupported LISP expression: {x.ErrorMsg}"
+    with override x.ToString () = $"invalid or unsupported LISP expression: {x.ErrorMsg}"
 
 exception UndefinedFunctionException of Name:string
     with override x.ToString () = $"{x.Name} is not a defined function"

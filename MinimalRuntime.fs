@@ -56,13 +56,13 @@ type MinimalRuntime () =
             | Success(lispExpr, _, _) -> Result.Ok lispExpr
             | Failure(errorMsg, _, _) -> Result.Error errorMsg
         with
-            | exn -> Result.Error $"[{exn.GetType().FullName}] {exn.ToString()}"
+            | exn -> Result.Error $"{exn.ToString()}"
 
     member _.EvalWithResult lispExpr =
         try
             evalExpression lispExpr |> Result.Ok
         with
-            | exn -> Result.Error $"[{exn.GetType().FullName}] {exn.ToString()}"
+            | exn -> Result.Error $"{exn.ToString()}"
 
     member x.RunWithResult lispSource =
         lispSource |> x.ParseWithResult |> Result.bind x.EvalWithResult
