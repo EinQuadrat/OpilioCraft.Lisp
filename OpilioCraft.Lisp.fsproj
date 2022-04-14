@@ -3,7 +3,7 @@
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
     <PackageId>OpilioCraft.Lisp</PackageId>
-    <Version>2.2.2</Version>
+    <Version>2.2.3</Version>
     <Authors>Carsten Schäfer</Authors>
     <Description>Provides a simple LISP engine. Behaviour has to be added by registering functions.</Description>
     <Copyright>Copyright (c) 2022 by Carsten Schäfer</Copyright>
@@ -26,7 +26,7 @@
 
   <ItemGroup>
     <PackageReference Include="FParsec" Version="1.1.1" />
-    <PackageReference Include="OpilioCraft.FSharp.Prelude" Version="1.5.1" />
+    <PackageReference Include="OpilioCraft.FSharp.Prelude" Version="1.5.2" />
   </ItemGroup>
 
   <ItemGroup>
