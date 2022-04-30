@@ -42,7 +42,9 @@ type Expression =
 
 // LISP function
 type Function = DeferredExpression list -> Expression
-and DeferredExpression = unit -> Expression // provides deferred evaluation
+
+and DeferredExpression = (struct (Evaluator * Expression))
+and Evaluator = Expression -> Expression
 
 // ------------------------------------------------------------------------------------------------
 

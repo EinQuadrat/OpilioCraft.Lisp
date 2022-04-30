@@ -28,7 +28,7 @@ type MinimalRuntime () =
         // do we have a function call?
         // please be aware that functions use deferred expression evaluation to be able to shortcut evaluation e.g. for conditionals
         | List ( (Symbol symbol) :: args ) ->
-            args |> List.map (fun arg -> fun _ -> evalExpression arg) |> (lookupFunction symbol) |> evalExpression
+            args |> List.map (fun arg -> struct(evalExpression, arg)) |> (lookupFunction symbol) |> evalExpression
 
         // lists elemts are evaluated; is some kind of duplicated code according to the pattern above, but easier to read
         | List items -> items |> List.map evalExpression |> List
