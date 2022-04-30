@@ -41,10 +41,20 @@ type Expression =
         stringify x
 
 // LISP function
-type Function = DeferredExpression list -> Expression
+type Function = Environment -> Expression list -> Expression
 
-and DeferredExpression = (struct (Evaluator * Expression))
-and Evaluator = Expression -> Expression
+// LISP environment
+and Environment =
+    {
+        Functions : Map<string, Function>
+    }
+
+    member x.LookupFunction name =
+        match x.Functions.ContainsKey(name) with
+        | true -> x.Functions.[name]
+        | _ -> raise <| UndefinedFunctionException name
+
+    static member empty = { Functions = Map.empty }
 
 // ------------------------------------------------------------------------------------------------
 

@@ -3,40 +3,16 @@
 open FParsec
 
 type MinimalRuntime () =
-    // function support
-    let mutable functionTable : Map<string, Function> = Map.empty
+    // environment
+    let mutable environment = Environment.empty
 
-    let lookupFunction name =
-        if functionTable.ContainsKey(name)
-        then
-            functionTable.[name]
-        else
-            raise <| UndefinedFunctionException name
+    member _.ClearEnvironment () =
+        environment <- Environment.empty
 
-    // LISP evaluator: the golden heart of LISP ;-)
-    let rec evalExpression expr =
-        match expr with
-        // quote prevents evaluation of the following expression
-        | QuotedExpression expr -> expr
-
-        // an atom evaluates to itself
-        | Atom _ as atom -> atom
-
-        // currently no support for symbol tables: a symbol evaluates to itself
-        | Symbol _ as symbol -> symbol
-
-        // do we have a function call?
-        // please be aware that functions use deferred expression evaluation to be able to shortcut evaluation e.g. for conditionals
-        | List ( (Symbol symbol) :: args ) ->
-            args |> List.map (fun arg -> struct(evalExpression, arg)) |> (lookupFunction symbol) |> evalExpression
-
-        // lists elemts are evaluated; is some kind of duplicated code according to the pattern above, but easier to read
-        | List items -> items |> List.map evalExpression |> List
+    member _.RegisterFunction name body =
+        environment <- { environment with Functions = environment.Functions |> Map.add name body }
 
     // runtime behaviour
-    member _.RegisterFunction name body =
-        functionTable <- functionTable |> Map.add name body
-
     member _.Parse lispSource =
         let parsedLisp = run OpilioCraft.Lisp.Parser.pExpression lispSource in
 
@@ -45,7 +21,7 @@ type MinimalRuntime () =
         | Failure(errorMsg, _, _) -> raise <| InvalidLispExpressionException errorMsg
 
     member _.Eval lispExpr =
-        evalExpression lispExpr
+        Evaluator.evalExpression environment lispExpr
 
     member x.Run lispSource =
         lispSource |> x.Parse |> x.Eval
@@ -61,9 +37,9 @@ type MinimalRuntime () =
         with
             | exn -> Result.Error $"{exn.ToString()}"
 
-    member _.EvalWithResult lispExpr =
+    member x.EvalWithResult lispExpr =
         try
-            evalExpression lispExpr |> Result.Ok
+            x.Eval lispExpr |> Result.Ok
         with
             | exn -> Result.Error $"{exn.ToString()}"
 
