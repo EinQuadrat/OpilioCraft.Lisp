@@ -14,9 +14,10 @@ type MinimalRuntime () =
             raise <| UndefinedFunctionException name
 
     // LISP evaluator: the golden heart of LISP ;-)
-    let rec evalExpression = function
+    let rec evalExpression expr =
+        match expr with
         // quote prevents evaluation of the following expression
-        | QuotedExpression expr -> expr 
+        | QuotedExpression expr -> expr
 
         // an atom evaluates to itself
         | Atom _ as atom -> atom
@@ -25,7 +26,9 @@ type MinimalRuntime () =
         | Symbol _ as symbol -> symbol
 
         // do we have a function call?
-        | List ( (Symbol symbol) :: args ) -> args |> List.map evalExpression |> (lookupFunction symbol) |> evalExpression
+        // please be aware that functions use deferred expression evaluation to be able to shortcut evaluation e.g. for conditionals
+        | List ( (Symbol symbol) :: args ) ->
+            args |> List.map (fun arg -> fun _ -> evalExpression arg) |> (lookupFunction symbol) |> evalExpression
 
         // lists elemts are evaluated; is some kind of duplicated code according to the pattern above, but easier to read
         | List items -> items |> List.map evalExpression |> List

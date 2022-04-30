@@ -41,7 +41,8 @@ type Expression =
         stringify x
 
 // LISP function
-and Function = Expression list -> Expression
+type Function = DeferredExpression list -> Expression
+and DeferredExpression = unit -> Expression // provides deferred evaluation
 
 // ------------------------------------------------------------------------------------------------
 
