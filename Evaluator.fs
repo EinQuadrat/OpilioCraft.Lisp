@@ -9,13 +9,22 @@ let rec evalExpression (env : Environment) (expr : Expression) =
     // an atom evaluates to itself
     | Atom _ as atom -> atom
 
-    // currently no support for symbol tables: a symbol evaluates to itself
-    | Symbol _ as symbol -> symbol
+    // convention: a symbol starting with ':' is treated as a keyword and evaluates to itself
+    | Symbol name as symbol when name.StartsWith(':') -> symbol
 
     // do we have a function call?
-    // please be aware that functions are responsible to evaluate args by themselves
-    | List ( (Symbol name) :: args ) -> (env.LookupFunction name) env args |> evalExpression env
+    | List ( (Symbol name) :: args ) ->
+        let argsEvalBehaviour = if env.IsSpecial name then id else List.map (evalExpression env)
+            // a special function gets args evaluation delegated
+
+        args
+        |> argsEvalBehaviour
+        |> (env.LookupFunction name) env
+        |> evalExpression env
 
     // lists elemts are evaluated; is some kind of duplicated code according to the pattern above, but easier to read
     | List items -> items |> List.map (evalExpression env) |> List
         // TODO: do we really need this case?
+
+    // semantic error
+    | _ -> raise <| InvalidLispExpressionException (expr.ToString())

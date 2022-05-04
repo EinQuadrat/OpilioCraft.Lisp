@@ -13,7 +13,7 @@ type Expression =
     | Atom of FlexibleValue
     | Symbol of string // special case of an atom: a string not enclosed in quotation marks; simplifies evaluation
     | List of Expression list
-    | QuotedExpression of Expression
+    | QuotedExpression of Expression // special case: ' as syntactic sugar for quote
 
     override x.ToString () =
         let rec stringify = function
@@ -47,14 +47,23 @@ type Function = Environment -> Expression list -> Expression
 and Environment =
     {
         Functions : Map<string, Function>
+        SpecialFunctions : Set<string> // special functions get args evaluation delegated
     }
+
+    member x.IsSpecial name =
+        x.SpecialFunctions.Contains name
 
     member x.LookupFunction name =
         match x.Functions.ContainsKey(name) with
         | true -> x.Functions.[name]
         | _ -> raise <| UndefinedFunctionException name
 
-    static member empty = { Functions = Map.empty }
+    static member empty = { Functions = Map.empty; SpecialFunctions = Set.empty }
+
+// Helper types
+type UnaryFunction = Environment -> Expression -> Expression
+type BinaryFunction = Environment -> Expression * Expression -> Expression
+type OrdinaryFunction = Function
 
 // ------------------------------------------------------------------------------------------------
 
