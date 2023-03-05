@@ -1,0 +1,38 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net7.0</TargetFramework>
+    <PackageId>OpilioCraft.Lisp.StandardLib</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Carsten Schäfer</Authors>
+    <Description>Standard function library for OpilioCraft.Lisp.</Description>
+    <Copyright>Copyright (c) 2022-2023 by Carsten Schäfer</Copyright>
+    <RepositoryUrl>https://github.com/EinQuadrat/OpilioCraft.Lisp.git</RepositoryUrl>
+    <PackageTags>OpilioCraft;FSharp;LISP</PackageTags>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+    <DebugType>portable</DebugType>
+    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+    <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <AnalysisLevel>latest</AnalysisLevel>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="SpecialSymbols.fs" />
+    <Compile Include="TypeConstructors.fs" />
+    <Compile Include="UnaryFunctions.fs" />
+    <Compile Include="BinaryFunctions.fs" />
+    <Compile Include="OrdinaryFunctions.fs" />
+    <Compile Include="Macros.fs" />
+    <Compile Include="StandardLib.fs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.fsproj" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Update="FSharp.Core" Version="7.0.200" />
+  </ItemGroup>
+
+</Project>
