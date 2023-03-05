@@ -28,9 +28,5 @@ jobs:
     - name: Pack
       run: dotnet pack --configuration Release --no-restore
 
-    - name: Install tool for working with the GPR
-      run: dotnet tool install -g gpr
-
     - name: Publish Package
-      run: gpr push **/*.nupkg -k ${{ secrets.GPR_TOKEN }}
-
+      run: dotnet nuget push **/*.nupkg -k ${{ secrets.GPR_TOKEN }} -s GitHub --skip-duplicate
