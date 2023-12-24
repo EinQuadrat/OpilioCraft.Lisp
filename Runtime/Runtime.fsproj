@@ -2,9 +2,9 @@
 
   <PropertyGroup>
     <OutputType>Exe</OutputType>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <PackageId>OpilioCraft.Lisp.Runtime</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Authors>Carsten Schäfer</Authors>
     <Description>Implements a rich featured LISP runtime for OpilioCraft.Lisp, e.g. integrates ObjectPath.</Description>
     <Copyright>Copyright (c) 2022-2023 by Carsten Schäfer</Copyright>

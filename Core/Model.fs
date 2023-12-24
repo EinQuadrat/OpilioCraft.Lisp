@@ -19,19 +19,20 @@ type Expression =
         let rec stringify = function
             | Atom atomValue ->
                 match atomValue with
-                | FlexibleValue.Boolean true -> "T"
-                | FlexibleValue.Boolean false -> "NIL"
-                | FlexibleValue.Numeral numValue -> $"{numValue}"
-                | FlexibleValue.Decimal numValue -> $"{numValue}"
-                | FlexibleValue.String stringValue -> $"\"{stringValue}\""
-                | FlexibleValue.Date dateValue -> dateValue.ToString("yyyy-MM-dd")
-                | FlexibleValue.Time timeValue -> timeValue.ToString("hh:mm:ss")
-                | FlexibleValue.DateTime datetimeValue -> datetimeValue.ToString("yyyy-MM-ddThh:mm:ss")
-                | otherKindOfValue -> otherKindOfValue.ToString()
+                | FlexibleValue.Boolean true            -> "T"
+                | FlexibleValue.Boolean false           -> "NIL"
+                | FlexibleValue.Numeral numValue        -> $"{numValue}"
+                | FlexibleValue.Decimal numValue        -> $"{numValue}"
+                | FlexibleValue.String stringValue      -> $"\"{stringValue}\""
+                | FlexibleValue.Date dateValue          -> dateValue.ToString("yyyy-MM-dd")
+                | FlexibleValue.Time timeValue          -> timeValue.ToString("hh:mm:ss")
+                | FlexibleValue.DateTime datetimeValue  -> datetimeValue.ToString("yyyy-MM-ddThh:mm:ss")
+                | otherKindOfValue                      -> otherKindOfValue.ToString()
 
             | Symbol symbol -> symbol
     
             | List [] -> "()"
+
             | List listValue ->
                 let listAsString = listValue |> List.map stringify |> (fun strings -> System.String.Join(" ", strings)) in
                 $"({listAsString})"

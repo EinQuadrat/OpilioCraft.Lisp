@@ -21,9 +21,9 @@ type LispRuntime private () =
         let instance = new LispRuntime ()
 
         // add standard library
-        OpilioCraft.Lisp.StandardLib.unaryFunctions    |> Map.iter (fun name body -> instance.Register(name, body))
-        OpilioCraft.Lisp.StandardLib.binaryFunctions   |> Map.iter (fun name body -> instance.Register(name, body))
-        OpilioCraft.Lisp.StandardLib.ordinaryFunctions |> Map.iter (fun name body -> instance.Register(name, body))
+        StandardLib.unaryFunctions    |> Map.iter (fun name body -> instance.Register(name, body))
+        StandardLib.binaryFunctions   |> Map.iter (fun name body -> instance.Register(name, body))
+        StandardLib.ordinaryFunctions |> Map.iter (fun name body -> instance.Register(name, body))
 
         // ObjectPath extension
         instance.Register("property"           , funcLookupObjectPath instance.ObjectPathContextProvider)

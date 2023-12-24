@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <PackageId>OpilioCraft.Lisp.StandardLib</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Authors>Carsten Schäfer</Authors>
     <Description>Standard function library for OpilioCraft.Lisp.</Description>
     <Copyright>Copyright (c) 2022-2023 by Carsten Schäfer</Copyright>

@@ -1,9 +1,9 @@
 ﻿<Project Sdk="Microsoft.NET.Sdk">
 
   <PropertyGroup>
-    <TargetFramework>net7.0</TargetFramework>
+    <TargetFramework>net8.0</TargetFramework>
     <PackageId>OpilioCraft.Lisp.Core</PackageId>
-    <Version>1.0.1</Version>
+    <Version>1.1.0</Version>
     <Authors>Carsten Schäfer</Authors>
     <Description>Provides a simple LISP engine. Behaviour has to be added by registering functions.</Description>
     <Copyright>Copyright (c) 2022-2023 by Carsten Schäfer</Copyright>

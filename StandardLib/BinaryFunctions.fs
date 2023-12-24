@@ -35,7 +35,7 @@ let binaryGreaterEqual _ = (compareExpressions (fun x -> x >= 0)) >> LispBoolean
 
 let private matchFunction funcName funcImpl : (Expression * Expression -> bool) = function
     | Atom (FlexibleValue.String value) , Atom (FlexibleValue.String pattern) -> funcImpl value pattern
-    | _ , Atom (FlexibleValue.String pattern) -> false // other expressions than string atoms lead to false
+    | _ , Atom (FlexibleValue.String _) -> false // other expressions than string atoms lead to false
     | _ -> raise <| InvalidLispExpressionException $"{funcName} expects a string pattern as second argument"
 
 let binaryContains _     = (matchFunction "contains" (fun value pattern -> value.Contains(pattern))) >> LispBoolean
