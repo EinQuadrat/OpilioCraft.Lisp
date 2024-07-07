@@ -3,10 +3,10 @@
   <PropertyGroup>
     <TargetFramework>net8.0</TargetFramework>
     <PackageId>OpilioCraft.Lisp.StandardLib</PackageId>
-    <Version>1.1.0</Version>
+    <Version>1.2.0</Version>
     <Authors>Carsten Schäfer</Authors>
     <Description>Standard function library for OpilioCraft.Lisp.</Description>
-    <Copyright>Copyright (c) 2022-2023 by Carsten Schäfer</Copyright>
+    <Copyright>Copyright (c) 2022-2024 by Carsten Schäfer</Copyright>
     <RepositoryUrl>https://github.com/EinQuadrat/OpilioCraft.Lisp.git</RepositoryUrl>
     <PackageTags>OpilioCraft;FSharp;LISP</PackageTags>
     <GenerateDocumentationFile>true</GenerateDocumentationFile>
@@ -32,7 +32,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="8.0.100" />
+    <PackageReference Update="FSharp.Core" Version="8.0.300" />
   </ItemGroup>
 
 </Project>
