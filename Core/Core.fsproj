@@ -2,14 +2,12 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <PackageId>OpilioCraft.Lisp.Core</PackageId>
+
     <Description>Provides a simple LISP engine. Behaviour has to be added by registering functions.</Description>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DebugType>portable</DebugType>
-    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
-    <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
-    <EnableNETAnalyzers>True</EnableNETAnalyzers>
-    <AnalysisLevel>latest</AnalysisLevel>
+
+    <AssemblyName>$(SolutionPrefix)</AssemblyName>
+    <RootNamespace>$(SolutionPrefix)</RootNamespace>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -25,7 +23,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="9.0.101" />
+    <PackageReference Update="FSharp.Core" Version="9.0.201" />
   </ItemGroup>
 
 </Project>

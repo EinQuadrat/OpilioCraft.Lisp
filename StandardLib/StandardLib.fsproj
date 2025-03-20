@@ -2,14 +2,9 @@
 
   <PropertyGroup>
     <TargetFramework>net9.0</TargetFramework>
-    <PackageId>OpilioCraft.Lisp.StandardLib</PackageId>
+    
     <Description>Standard function library for OpilioCraft.Lisp.</Description>
-    <GenerateDocumentationFile>true</GenerateDocumentationFile>
-    <DebugType>portable</DebugType>
-    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
-    <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
-    <EnableNETAnalyzers>True</EnableNETAnalyzers>
-    <AnalysisLevel>latest</AnalysisLevel>
+
   </PropertyGroup>
 
   <ItemGroup>
@@ -17,7 +12,7 @@
     <Compile Include="TypeConstructors.fs" />
     <Compile Include="UnaryFunctions.fs" />
     <Compile Include="BinaryFunctions.fs" />
-    <Compile Include="OrdinaryFunctions.fs" />
+    <Compile Include="Functions.fs" />
     <Compile Include="Macros.fs" />
     <Compile Include="StandardLib.fs" />
   </ItemGroup>
@@ -31,7 +26,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Update="FSharp.Core" Version="9.0.101" />
+    <PackageReference Update="FSharp.Core" Version="9.0.201" />
   </ItemGroup>
 
 </Project>

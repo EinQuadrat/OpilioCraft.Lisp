@@ -1,20 +1,30 @@
 ﻿<Project>
 
-    <PropertyGroup Label="UserMacros">
-        <SolutionId>OpilioCraft.Lisp</SolutionId>
-    </PropertyGroup>
+  <PropertyGroup Label="UserMacros">
+    <SolutionPrefix>OpilioCraft.Lisp</SolutionPrefix>
+  </PropertyGroup>
 
-    <PropertyGroup>
+  <PropertyGroup>
 
-        <VersionPrefix>1.2.1</VersionPrefix>
-        <Authors>Carsten Schäfer</Authors>
-        <Copyright>Copyright (c) 2022-2024 by Carsten Schäfer</Copyright>
-        <RepositoryUrl>https://github.com/EinQuadrat/OpilioCraft.Lisp.git</RepositoryUrl>
-        <PackageTags>OpilioCraft;Lisp;FSharp</PackageTags>
+    <VersionPrefix>2.0.0</VersionPrefix>
+    <Authors>Carsten Schäfer</Authors>
+    <Copyright>Copyright (c) 2022-2025 by Carsten Schäfer</Copyright>
 
-        <AssemblyName>$(SolutionId).$(MSBuildProjectName)</AssemblyName>
-        <RootNamespace>$(SolutionId).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+    <RepositoryUrl>https://github.com/EinQuadrat/OpilioCraft.Lisp.git</RepositoryUrl>
+    <PackageTags>OpilioCraft;Lisp;FSharp</PackageTags>
 
-    </PropertyGroup>
+    <AssemblyName>$(SolutionPrefix).$(MSBuildProjectName)</AssemblyName>
+    <RootNamespace>$(SolutionPrefix).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+
+    <DebugType>None</DebugType>
+    <DebugSymbols>False</DebugSymbols>
+    <GenerateDocumentationFile>true</GenerateDocumentationFile>
+
+    <EnableNETAnalyzers>True</EnableNETAnalyzers>
+    <AnalysisLevel>latest-recommended</AnalysisLevel>
+    <RunAnalyzersDuringLiveAnalysis>True</RunAnalyzersDuringLiveAnalysis>
+    <RunAnalyzersDuringBuild>True</RunAnalyzersDuringBuild>
+
+  </PropertyGroup>
 
 </Project>
