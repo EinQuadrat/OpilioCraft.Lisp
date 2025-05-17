@@ -3,10 +3,10 @@
 open OpilioCraft.FSharp.Prelude
 
 exception InvalidLispExpressionException of ErrorMsg:string
-    with override x.ToString () = $"invalid or unsupported LISP expression: {x.ErrorMsg}"
+    with override x.ToString() = $"invalid or unsupported LISP expression: {x.ErrorMsg}"
 
 exception UndefinedFunctionException of Name:string
-    with override x.ToString () = $"{x.Name} is not a defined function"
+    with override x.ToString() = $"{x.Name} is not a defined function"
 
 // LISP elements
 type Expression = 
@@ -51,12 +51,12 @@ and Environment =
         SpecialFunctions : Set<string> // special functions get args evaluation delegated
     }
 
-    member x.IsSpecial name =
-        x.SpecialFunctions.Contains name
+    member x.IsSpecial(name) =
+        x.SpecialFunctions.Contains(name)
 
-    member x.LookupFunction name =
+    member x.LookupFunction(name) =
         match x.Functions.ContainsKey(name) with
-        | true -> x.Functions.[name]
+        | true -> x.Functions[name]
         | _ -> raise <| UndefinedFunctionException name
 
     static member empty = { Functions = Map.empty; SpecialFunctions = Set.empty }
@@ -75,8 +75,8 @@ module LispAtomHelper =
     let LispDecimal     = FlexibleValue.Decimal >> Atom
     let LispString      = FlexibleValue.String >> Atom
 
-    let LispTrue        = LispBoolean true
-    let LispFalse       = LispBoolean false
+    let LispTrue        = LispBoolean(true)
+    let LispFalse       = LispBoolean(false)
 
     let LispDate        = FlexibleValue.Date >> Atom
     let LispTime        = FlexibleValue.Time >> Atom
@@ -86,29 +86,29 @@ module LispAtomHelper =
 [<AutoOpen>]
 module LispActivePatterns =
     let (|LispBoolean|_|) = function
-        | Atom (FlexibleValue.Boolean boolValue) -> Some boolValue
+        | Atom(FlexibleValue.Boolean boolValue) -> Some boolValue
         | _ -> None
 
     let (|LispNumeral|_|) = function
-        | Atom (FlexibleValue.Numeral numValue) -> Some numValue
+        | Atom(FlexibleValue.Numeral numValue) -> Some numValue
         | _ -> None
 
     let (|LispDecimal|_|) = function
-        | Atom (FlexibleValue.Decimal numValue) -> Some numValue
+        | Atom(FlexibleValue.Decimal numValue) -> Some numValue
         | _ -> None
 
     let (|LispString|_|) = function
-        | Atom (FlexibleValue.String stringValue) -> Some stringValue
+        | Atom(FlexibleValue.String stringValue) -> Some stringValue
         | _ -> None
 
     let (|LispDate|_|) = function
-        | Atom (FlexibleValue.Date dateValue) -> Some dateValue
+        | Atom(FlexibleValue.Date dateValue) -> Some dateValue
         | _ -> None
 
     let (|LispTime|_|) = function
-        | Atom (FlexibleValue.Time timeValue) -> Some timeValue
+        | Atom(FlexibleValue.Time timeValue) -> Some timeValue
         | _ -> None
 
     let (|LispDateTime|_|) = function
-        | Atom (FlexibleValue.DateTime dateTimeValue) -> Some dateTimeValue
+        | Atom(FlexibleValue.DateTime dateTimeValue) -> Some dateTimeValue
         | _ -> None

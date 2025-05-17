@@ -58,7 +58,7 @@ let pSymbol =
 let pExpression, pExpressionImpl = createParserForwardedToRef()
 
 let pList =
-    pOpeningBracket >>. ( sepEndBy pExpression spaces ) .>> pClosingBracket |>> List
+    pOpeningBracket >>. (sepEndBy pExpression spaces) .>> pClosingBracket |>> List
 
 let pQuotedExpression =
     pchar '\'' >>. pExpression .>> spaces |>> QuotedExpression
