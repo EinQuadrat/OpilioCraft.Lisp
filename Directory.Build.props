@@ -1,7 +1,7 @@
 ﻿<Project>
 
     <PropertyGroup Label="UserMacros">
-        <SolutionId>OpilioCraft.Lisp</SolutionId>
+        <SolutionPrefix>OpilioCraft.Lisp</SolutionPrefix>
     </PropertyGroup>
 
     <PropertyGroup>
@@ -13,8 +13,8 @@
       <RepositoryUrl>https://github.com/EinQuadrat/OpilioCraft.Lisp.git</RepositoryUrl>
       <PackageTags>OpilioCraft;Lisp;FSharp</PackageTags>
 
-      <AssemblyName>$(SolutionId).$(MSBuildProjectName)</AssemblyName>
-      <RootNamespace>$(SolutionId).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
+      <AssemblyName>$(SolutionPrefix).$(MSBuildProjectName)</AssemblyName>
+      <RootNamespace>$(SolutionPrefix).$(MSBuildProjectName.Replace(" ", "_"))</RootNamespace>
 
       <DebugType>None</DebugType>
       <DebugSymbols>False</DebugSymbols>
