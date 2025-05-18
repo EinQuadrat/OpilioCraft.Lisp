@@ -2,7 +2,7 @@
 
 open System.Text.RegularExpressions
 
-open OpilioCraft.FSharp.FlexibleValue
+open OpilioCraft.FSharp.FlexibleValues
 open OpilioCraft.Lisp
 
 // ------------------------------------------------------------------------------------------------

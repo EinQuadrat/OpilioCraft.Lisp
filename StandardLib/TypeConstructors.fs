@@ -1,6 +1,6 @@
 ﻿module internal OpilioCraft.Lisp.StandardLib.TypeConstructors
 
-open OpilioCraft.FSharp.FlexibleValue
+open OpilioCraft.FSharp.FlexibleValues
 open OpilioCraft.Lisp
 
 // date/time related types

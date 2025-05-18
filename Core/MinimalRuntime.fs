@@ -57,4 +57,4 @@ type MinimalRuntime () =
         with
             | exn -> Result.Error($"{exn.ToString()}")
 
-    member x.RunWithResult = x.ParseWithResult >> (Result.bind x.EvalWithResult)
+    member x.RunWithResult(lispSource) = x.ParseWithResult(lispSource) |> (Result.bind x.EvalWithResult)

@@ -1,6 +1,6 @@
 ﻿namespace OpilioCraft.Lisp
 
-open OpilioCraft.FSharp.FlexibleValue
+open OpilioCraft.FSharp.FlexibleValues
 
 exception InvalidLispExpressionException of ErrorMsg:string
     with override x.ToString() = $"invalid or unsupported LISP expression: {x.ErrorMsg}"
