@@ -17,13 +17,9 @@
     <Compile Include="TypeConstructors.fs" />
     <Compile Include="UnaryFunctions.fs" />
     <Compile Include="BinaryFunctions.fs" />
-    <Compile Include="OrdinaryFunctions.fs" />
+    <Compile Include="Functions.fs" />
     <Compile Include="Macros.fs" />
     <Compile Include="StandardLib.fs" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <PackageReference Include="opiliocraft.fsharp.prelude" Version="9.0.0" />
   </ItemGroup>
 
   <ItemGroup>

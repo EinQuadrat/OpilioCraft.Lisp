@@ -2,6 +2,7 @@
 
 open System
 
+open OpilioCraft.Lisp.StandardLib
 open OpilioCraft.Lisp.Runtime.ObjectPathExtension
 
 type LispRuntime private () =

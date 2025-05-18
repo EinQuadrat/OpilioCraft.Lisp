@@ -25,7 +25,6 @@
   </ItemGroup>
 
   <ItemGroup>
-    <PackageReference Include="opiliocraft.fsharp.prelude" Version="9.0.0" />
     <PackageReference Include="OpilioCraft.ObjectPath" Version="1.3.0" />
   </ItemGroup>
 
