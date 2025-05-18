@@ -1,7 +1,7 @@
 ﻿module OpilioCraft.Lisp.Evaluator
 
 // LISP evaluator: the golden heart of LISP ;-)
-let rec evalExpression (env: Environment) (expr: Expression) =
+let rec evalExpression (env: Environment) (expr: LispExpression) =
     match expr with
     // quote prevents evaluation of the following expression
     | QuotedExpression expr -> expr

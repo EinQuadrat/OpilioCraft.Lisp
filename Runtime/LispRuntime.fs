@@ -59,11 +59,11 @@ type LispRuntime private () =
     member x.TryEval = x.EvalWithResult >> Result.toOption
     member x.TryRun = x.RunWithResult >> Result.toOption
 
-    member _.ResultToString(result: Result<Expression, string>) =
+    member _.ResultToString(result: Result<LispExpression, string>) =
         match result with
         | Ok result -> result.ToString()
         | Error errorMsg -> $"Error occurred: {errorMsg}"
 
-    member x.PrintResult(result: Result<Expression, string>) =
+    member x.PrintResult(result: Result<LispExpression, string>) =
         x.ResultToString result
         |> Console.WriteLine

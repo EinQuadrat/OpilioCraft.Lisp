@@ -9,11 +9,11 @@ exception UndefinedFunctionException of Name:string
     with override x.ToString() = $"{x.Name} is not a defined function"
 
 // LISP elements
-type Expression = 
+type LispExpression = 
     | Atom of FlexibleValue
     | Symbol of string // special case of an atom: a string not enclosed in quotation marks; simplifies evaluation
-    | List of Expression list
-    | QuotedExpression of Expression // special case: ' as syntactic sugar for quote
+    | List of LispExpression list
+    | QuotedExpression of LispExpression // special case: ' as syntactic sugar for quote
 
     override x.ToString () =
         let rec stringify = function
@@ -42,7 +42,7 @@ type Expression =
         stringify x
 
 // LISP function
-type Function = Environment -> Expression list -> Expression
+type Function = Environment -> LispExpression list -> LispExpression
 
 // LISP environment
 and Environment =
@@ -62,8 +62,8 @@ and Environment =
     static member empty = { Functions = Map.empty; SpecialFunctions = Set.empty }
 
 // Helper types
-type UnaryFunction = Environment -> Expression -> Expression
-type BinaryFunction = Environment -> Expression * Expression -> Expression
+type UnaryFunction = Environment -> LispExpression -> LispExpression
+type BinaryFunction = Environment -> LispExpression * LispExpression -> LispExpression
 type OrdinaryFunction = Function
 
 // ------------------------------------------------------------------------------------------------

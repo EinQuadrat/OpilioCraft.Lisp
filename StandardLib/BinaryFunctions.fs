@@ -8,7 +8,7 @@ open OpilioCraft.Lisp
 // ------------------------------------------------------------------------------------------------
 // canonical comparisons
 
-let rec private compareExpressions condition : (Expression * Expression -> bool) = function // result has to be bool to facilitate recursion
+let rec private compareExpressions condition : (LispExpression * LispExpression -> bool) = function // result has to be bool to facilitate recursion
     // atoms of equal type and of same value are treated as equal, otherwise not
     | Atom a, Atom b ->
         a.TryCompareTo b |> (function | Some result -> condition result | _ -> false)
@@ -33,7 +33,7 @@ let binaryGreaterEqual _ = (compareExpressions (fun x -> x >= 0)) >> LispBoolean
 // ------------------------------------------------------------------------------------------------
 // match-based comparisons
 
-let private matchFunction funcName funcImpl : (Expression * Expression -> bool) = function
+let private matchFunction funcName funcImpl : (LispExpression * LispExpression -> bool) = function
     | Atom (FlexibleValue.String value) , Atom (FlexibleValue.String pattern) -> funcImpl value pattern
     | _ , Atom (FlexibleValue.String _) -> false // other expressions than string atoms lead to false
     | _ -> raise <| InvalidLispExpressionException $"{funcName} expects a string pattern as second argument"

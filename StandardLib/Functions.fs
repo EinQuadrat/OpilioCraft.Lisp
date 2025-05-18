@@ -6,7 +6,7 @@ open SpecialSymbols
 // (and expr1 ... exprN) := expr1 [ && ... && exprN ]
 let funcAnd env =
     List.fold (
-        fun (result: bool) (expr: Expression) ->
+        fun (result: bool) (expr: LispExpression) ->
             if result = true // can shortcut
             then
                 Evaluator.evalExpression env expr |> function
@@ -20,7 +20,7 @@ let funcAnd env =
 // (or expr1 ... exprN) := expr1 [ || ... || exprN ]
 let funcOr env =
     List.fold (
-        fun (result: bool) (expr: Expression) ->
+        fun (result: bool) (expr: LispExpression) ->
             if result = false // can shortcut
             then
                 Evaluator.evalExpression env expr |> function
@@ -32,7 +32,7 @@ let funcOr env =
     >> LispBoolean
 
 // (cond (test1 action1) [ ... (testN actionN) ] )
-let rec funcCond env (cases: Expression list) : Expression =
+let rec funcCond env (cases: LispExpression list) : LispExpression =
     match cases with
     | [] -> NIL
     | List [ test ; action ] :: tail ->
