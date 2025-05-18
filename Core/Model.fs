@@ -1,6 +1,6 @@
 ﻿namespace OpilioCraft.Lisp
 
-open OpilioCraft.FSharp.Prelude
+open OpilioCraft.FSharp.FlexibleValue
 
 exception InvalidLispExpressionException of ErrorMsg:string
     with override x.ToString() = $"invalid or unsupported LISP expression: {x.ErrorMsg}"
@@ -86,29 +86,29 @@ module LispAtomHelper =
 [<AutoOpen>]
 module LispActivePatterns =
     let (|LispBoolean|_|) = function
-        | Atom(FlexibleValue.Boolean boolValue) -> Some boolValue
+        | Atom (FlexibleValue.Boolean boolValue) -> Some boolValue
         | _ -> None
 
     let (|LispNumeral|_|) = function
-        | Atom(FlexibleValue.Numeral numValue) -> Some numValue
+        | Atom (FlexibleValue.Numeral numValue) -> Some numValue
         | _ -> None
 
     let (|LispDecimal|_|) = function
-        | Atom(FlexibleValue.Decimal numValue) -> Some numValue
+        | Atom (FlexibleValue.Decimal numValue) -> Some numValue
         | _ -> None
 
     let (|LispString|_|) = function
-        | Atom(FlexibleValue.String stringValue) -> Some stringValue
+        | Atom (FlexibleValue.String stringValue) -> Some stringValue
         | _ -> None
 
     let (|LispDate|_|) = function
-        | Atom(FlexibleValue.Date dateValue) -> Some dateValue
+        | Atom (FlexibleValue.Date dateValue) -> Some dateValue
         | _ -> None
 
     let (|LispTime|_|) = function
-        | Atom(FlexibleValue.Time timeValue) -> Some timeValue
+        | Atom (FlexibleValue.Time timeValue) -> Some timeValue
         | _ -> None
 
     let (|LispDateTime|_|) = function
-        | Atom(FlexibleValue.DateTime dateTimeValue) -> Some dateTimeValue
+        | Atom (FlexibleValue.DateTime dateTimeValue) -> Some dateTimeValue
         | _ -> None

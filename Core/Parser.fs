@@ -39,12 +39,13 @@ let pString : Parser<_> =
     let normalChar = satisfy (fun c -> c <> '"') in
     between (pchar '"') (pchar '"') (manyChars normalChar) |>> LispString
 
-let pAtom = choice [
-                pTrue
-                pFalse
-                pNumeralOrDecimal
-                pString
-            ] .>> spaces // skips trailing whitespace
+let pAtom =
+    choice [
+        pTrue
+        pFalse
+        pNumeralOrDecimal
+        pString
+    ] .>> spaces // skips trailing whitespace
 
 // parse symbols
 let pSymbol =

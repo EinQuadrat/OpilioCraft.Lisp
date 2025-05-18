@@ -1,6 +1,6 @@
 ﻿module internal OpilioCraft.Lisp.Runtime.ObjectPathExtension
 
-open OpilioCraft.FSharp.Prelude
+open OpilioCraft.FSharp.FlexibleValue
 open OpilioCraft.Lisp
 
 // runtime context
